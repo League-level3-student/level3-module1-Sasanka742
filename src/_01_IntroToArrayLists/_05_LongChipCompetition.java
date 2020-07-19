@@ -16,14 +16,19 @@ public class _05_LongChipCompetition {
 
 	public static void main(String[] args) {
 		_05_LongChipCompetition lcc = new _05_LongChipCompetition();
-	
 		lcc.initializeBeatles();
 		lcc.getTheBand();
+		double length =  lcc.getTheBand().get(0).getChips().get(0).getLength();
+		String nameLongestChip = lcc.getTheBand().get(0).getName();
 		for(int i=0;i<lcc.getTheBand().size();i++) {
 			for(int k=0;k<lcc.getTheBand().get(i).getChips().size();k++) {
-				lcc.getTheBand().get(i).getChips().get(k).getLength();
+				if(( lcc.getTheBand().get(i).getChips().get(k).getLength())>length) {
+					 length = lcc.getTheBand().get(i).getChips().get(k).getLength();
+					 nameLongestChip = lcc.getTheBand().get(i).getName();
+				}
 			}
 		}
+		System.out.println("Beetle with the longest chip: "+nameLongestChip);
 	}
 	
 	private void initializeBeatles() {
