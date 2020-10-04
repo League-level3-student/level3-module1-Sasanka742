@@ -2,6 +2,7 @@ package _03_IntroToStacks;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Stack;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,15 +21,19 @@ public class _02_TextUndoRedo implements KeyListener {
 	 * off the Stack and added back to the JLabel.
 	 * 
 	 * */
-	
+	JFrame frame;
+	JPanel panel;
+	JLabel label;
+	Stack<String> undo;
 	public void main(String[] args) {
-		JFrame frame = new JFrame();
-		JPanel panel = new JPanel();
-		JLabel label = new JLabel();
+		undo = new Stack<String>();
+		frame = new JFrame();
+		panel = new JPanel();
+		label = new JLabel("Hello");
 		panel.add(label);
 		frame.add(panel);
 		frame.setVisible(true);
-		label.addKeyListener(this);
+		frame.addKeyListener(this);
 	}
 	
 	@Override
@@ -39,8 +44,18 @@ public class _02_TextUndoRedo implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println("---");
-		
+		if(e.getKeyCode()== KeyEvent.VK_BACK_SPACE&&label.getText().length()>0) {
+			//saves the last char in stack before deleted
+			undo.push(""+label.getText().charAt(label.getText().length()-1));
+			//the last char is removed from label
+			label.setText(label.getText().substring(0,label.getText().length()-1));
+		}else if(e.getKeyCode()== KeyEvent.VK_BACK_SPACE&&label.getText().length()==0){
+			//
+		}else if(label.getText().length()>=0&&e.getKeyChar()!='z'){
+			label.setText(label.getText()+e.getKeyChar());
+		}else if(label.getText().length()>=0&&(e.getKeyChar()=='z'&&undo.size()>0)) {
+			label.setText(label.getText()+undo.pop());
+		}
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {
