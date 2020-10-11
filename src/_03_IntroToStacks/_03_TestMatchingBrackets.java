@@ -25,13 +25,19 @@ public class _03_TestMatchingBrackets {
 		for(int i=0;i<brackets.length();i++) {
 			if(brackets.charAt(i)=='{') {
 				bracket.push("{");
-			}else if(brackets.charAt(i)=='}'&&bracket.isEmpty()) {
-				return false;
+				continue;
+			}else if(brackets.charAt(i)=='}') {
+				if(bracket.isEmpty()) {
+					 return false;
+				}
 				bracket.pop();
-			}else{
 				
 			}
 		}
+		if(!bracket.isEmpty()){
+			return false;
+		}
+		return true;
     			//2.  If the current character is an '{'
 
         			//3.  Push an '{' onto the stack 
@@ -52,7 +58,6 @@ public class _03_TestMatchingBrackets {
 		//10. else (i.e. everything matched correctly)
 
     			//11. return true 
-			return true;
 		
 	}
 
