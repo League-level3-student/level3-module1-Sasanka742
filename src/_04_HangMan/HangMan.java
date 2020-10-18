@@ -10,11 +10,15 @@ import javax.swing.JLabel;
 
 public class HangMan implements KeyListener{
 	 JFrame frame;
+	 JLabel label;
 	 Scanner input;
 	 Utilities text;
+	 String currentWrd;
+	 String blanks;
+	 int key = 0;
 	public void main(String[] args) {
 		 frame = new JFrame("Hangman");
-		 JLabel label = new JLabel();
+		 label = new JLabel();
 		 input = new Scanner(System.in);
 		 text = new Utilities();
 		 System.out.println("Enter a number between 1 and 266");
@@ -27,15 +31,15 @@ public class HangMan implements KeyListener{
 			words.push(word);
 			
 		}
-		String currentWrd = words.pop();
+		currentWrd = words.pop();
 		frame.add(label);
-		String blanks = "";
+		blanks = "";
 		for(int i=0;i<currentWrd.length();i++) {
-			blanks+="_ ";
+			blanks+="_";
 		}
 		label.setText(blanks);
 		frame.setVisible(true);
-		label.addKeyListener(this);
+		frame.addKeyListener(this);
 	}
 	@Override
 	public void keyTyped(KeyEvent e) {
@@ -45,8 +49,19 @@ public class HangMan implements KeyListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getKeyChar()==)
-		
+		System.out.println("KeyPressed");
+				for(int i=0;i<currentWrd.length();i++) {
+					if(currentWrd.charAt(i)==e.getKeyChar()) {
+						blanks = blanks.replace(blanks.charAt(i), e.getKeyChar());
+					}else if(currentWrd.charAt(i)=='_') {
+						blanks = blanks.replace(blanks.charAt(i), '_');
+					}
+				}
+			frame.remove(label);
+			label = new JLabel();
+			label.setText(blanks);
+			frame.add(label);
+			frame.setVisible(true);
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {
