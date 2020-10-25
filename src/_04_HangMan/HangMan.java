@@ -16,6 +16,8 @@ public class HangMan implements KeyListener{
 	 String currentWrd;
 	 String blanks;
 	 int key = 0;
+	 int counter = 0;
+	 String typed = "";
 	public void main(String[] args) {
 		 frame = new JFrame("Hangman");
 		 label = new JLabel();
@@ -50,16 +52,24 @@ public class HangMan implements KeyListener{
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		System.out.println("KeyPressed");
-				for(int i=0;i<currentWrd.length();i++) {
-					if(currentWrd.charAt(i)==e.getKeyChar()) {
-						blanks = blanks.replace(blanks.charAt(i), e.getKeyChar());
-					}else if(currentWrd.charAt(i)=='_') {
-						blanks = blanks.replace(blanks.charAt(i), '_');
-					}
+		String pressed = ""+e.getKeyChar();
+		typed = "";
+		for(int i=0;i<currentWrd.length();i++) {
+			if(currentWrd.charAt(i)==e.getKeyChar()) {
+				if(i==0) {
+					typed = pressed;
+					typed += label.getText().substring(1);
+				}else if(i>0&&i<currentWrd.length()) {
+					
+				}else if(i==currentWrd.length()-1) {
+					
 				}
+			}
+		}
+		
 			frame.remove(label);
 			label = new JLabel();
-			label.setText(blanks);
+			label.setText(typed);
 			frame.add(label);
 			frame.setVisible(true);
 	}
