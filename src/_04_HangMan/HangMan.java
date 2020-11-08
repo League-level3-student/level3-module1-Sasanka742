@@ -15,13 +15,11 @@ public class HangMan implements KeyListener{
 	 Utilities text;
 	 String currentWrd;
 	 String blanks;
-	 int key = 0;
-	 int counter = 0;
 	 String typed = "";
 	 Stack<String> words;
 	 int health = 3;
 	public void main(String[] args) {
-		 frame = new JFrame("Hangman");
+		 frame = new JFrame("Hangmang     Health: "+health);
 		 label = new JLabel();
 		 input = new Scanner(System.in);
 		 text = new Utilities();
@@ -36,7 +34,7 @@ public class HangMan implements KeyListener{
 			
 		}
 		currentWrd = words.pop();
-		System.out.println("The word: "+currentWrd); //print word to test
+		//System.out.println("The word: "+currentWrd); //print word to test
 		frame.add(label);
 		blanks = "";
 		for(int i=0;i<currentWrd.length();i++) {
@@ -47,23 +45,14 @@ public class HangMan implements KeyListener{
 		frame.addKeyListener(this);
 	}
 	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println("KeyPressed");
+		System.out.println("Key: "+e.getKeyChar());
 		String pressed = ""+e.getKeyChar();
 		typed = "";
 		if(!currentWrd.contains(pressed)||label.getText().contains(pressed)){
 			health--;
-			//check if game over
-			if(health==0) {
-				System.out.println("Game Over!No more tries");
-				goto newWord;
-			}
+			frame.setTitle("Hangmang     Health: "+health);
 		}	
 		for(int i=0;i<currentWrd.length();i++) {
 			if(currentWrd.charAt(i)==e.getKeyChar()) {
@@ -84,24 +73,35 @@ public class HangMan implements KeyListener{
 					label.removeAll();
 					label.setText(typed);
 				}
-				//check if word completed
-				if(label.getText().equals(currentWrd)) {
-					newWord:
-						currentWrd = words.pop();
-						blanks = "";
-						for(int k=0;k<currentWrd.length();k++) {
-							blanks+="_";
-						}
-						label.removeAll();
-						label.setText(blanks);
-				}
 			}		
+		}
+		if(label.getText().equals(currentWrd)||health==0) {
+			//check if game over
+			if(health==0) {
+				System.out.println("Incorrect!Next Word");
+			}else {
+				System.out.println("Correct!Next Word");
+			}
+			currentWrd = words.pop();
+			//System.out.println("The word: "+currentWrd);
+			blanks = "";
+			health = 3;
+			for(int k=0;k<currentWrd.length();k++) {
+				blanks+="_";
+			}
+			label.removeAll();
+			label.setText(blanks);
 		}
 				
 	}
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
+	}
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
