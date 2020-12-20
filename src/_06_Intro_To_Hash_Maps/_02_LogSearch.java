@@ -80,9 +80,12 @@ public class _02_LogSearch implements ActionListener {
 		}
 		if(e.getSource().equals(list)) {
 			String fullList = "";
-			
- 			
- 		
+			for(int key: names.keySet()) {
+				String keyS = key +"";
+				String name = names.get(key);
+				fullList += "ID: "+ keyS  +" Name: "+ name + "\n";
+			}
+			JOptionPane.showMessageDialog(null, fullList);
 		}
 		if(e.getSource().equals(remove)) {
 			String inputID = JOptionPane.showInputDialog("Enter an ID: ");
