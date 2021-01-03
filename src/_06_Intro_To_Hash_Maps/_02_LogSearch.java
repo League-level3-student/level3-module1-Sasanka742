@@ -92,9 +92,11 @@ public class _02_LogSearch implements ActionListener {
 			
 			if(names.containsKey(Integer.parseInt(inputID))) {
 				names.remove(Integer.parseInt(inputID));
+			
 			}
 		}
 	}
+	//finished
 	
 	
 	
